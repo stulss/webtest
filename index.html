@@ -1,344 +1,86 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>나를 소개합니다</title>
-  <meta name="description" content="개인 포트폴리오 페이지. 대상, 공개 범위, 강점 3가지, 근거를 정리합니다.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#EEF1EA;
-    --surface:#FBFAF5;
-    --surface-2:#F3EFE3;
-    --ink:#20291F;
-    --ink-soft:#4A554A;
-    --accent:#C98A2C;
-    --accent-2:#2F5D62;
-    --line:#D8D2C0;
-    --radius:14px;
-    --max:920px;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
-  }
-
-  *{ box-sizing:border-box; }
-  html,body{ margin:0; padding:0; overflow-x:hidden; max-width:100%; }
-  body{
-    background:var(--bg);
-    color:var(--ink);
-    font-family:'Inter',system-ui,sans-serif;
-    line-height:1.55;
-    -webkit-font-smoothing:antialiased;
-  }
-  img{ max-width:100%; }
-
-  a{ color:var(--accent-2); }
-  a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
-    outline:3px solid var(--accent);
-    outline-offset:3px;
-    border-radius:4px;
-  }
-
-  .wrap{ max-width:var(--max); margin:0 auto; padding:0 24px; }
-
-  .mono{ font-family:'IBM Plex Mono',monospace; letter-spacing:0.02em; }
-
-  /* ---------- HERO ---------- */
-  .hero{
-    min-height:100svh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    padding:64px 0 48px;
-    border-bottom:1px solid var(--line);
-  }
-  .hero-tag{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-size:0.78rem;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-    margin-bottom:22px;
-  }
-  .hero-tag::before{
-    content:"";
-    width:8px;height:8px;
-    background:var(--accent);
-    border-radius:50%;
-    display:inline-block;
-  }
-  h1{
-    font-family:'Fraunces',serif;
-    font-weight:600;
-    font-size:clamp(2rem, 5vw, 3.4rem);
-    line-height:1.12;
-    margin:0 0 18px;
-    max-width:14ch;
-  }
-  h1 em{
-    font-style:italic;
-    font-weight:500;
-    color:var(--accent-2);
-  }
-  .hero-desc{
-    font-size:1.05rem;
-    color:var(--ink-soft);
-    max-width:52ch;
-    margin:0 0 34px;
-  }
-  .hero-desc b{ color:var(--ink); font-weight:600; }
-
-  .key3{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-  }
-  .key3 span{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.78rem;
-    padding:7px 12px;
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:999px;
-    color:var(--ink-soft);
-  }
-
-  /* ---------- SCOPE ---------- */
-  section{ padding:56px 0; border-bottom:1px solid var(--line); }
-  .eyebrow{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.75rem;
-    color:var(--accent-2);
-    text-transform:uppercase;
-    letter-spacing:0.08em;
-    margin:0 0 10px;
-  }
-  h2{
-    font-family:'Fraunces',serif;
-    font-weight:600;
-    font-size:clamp(1.5rem,3vw,2rem);
-    margin:0 0 28px;
-  }
-
-  .scope-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:18px;
-  }
-  .scope-card{
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:20px 22px;
-  }
-  .scope-card.public{ border-left:4px solid var(--accent-2); }
-  .scope-card.private{ border-left:4px solid var(--accent); }
-  .scope-card h3{
-    margin:0 0 12px;
-    font-size:0.95rem;
-    font-family:'IBM Plex Mono',monospace;
-    text-transform:uppercase;
-  }
-  .scope-card ul{ margin:0; padding-left:18px; color:var(--ink-soft); }
-  .scope-card li{ margin-bottom:6px; }
-
-  /* ---------- STRENGTH CATALOG CARDS (signature element) ---------- */
-  .catalog{
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-  }
-  .card{
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    overflow:hidden;
-  }
-  .card-head{
-    width:100%;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:16px;
-    padding:18px 22px;
-    background:transparent;
-    border:none;
-    cursor:pointer;
-    text-align:left;
-    font:inherit;
-    color:inherit;
-  }
-  .card-head:hover{ background:var(--surface-2); }
-  .card-title{
-    display:flex;
-    align-items:baseline;
-    gap:14px;
-  }
-  .card-tab{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.7rem;
-    padding:3px 9px;
-    border:1px solid var(--accent);
-    color:var(--accent);
-    border-radius:999px;
-    flex-shrink:0;
-  }
-  .card-title strong{
-    font-family:'Fraunces',serif;
-    font-weight:600;
-    font-size:1.15rem;
-  }
-  .chevron{
-    width:20px;height:20px;
-    flex-shrink:0;
-    transition:transform 0.25s ease;
-    color:var(--ink-soft);
-  }
-  .card[data-open="true"] .chevron{ transform:rotate(180deg); }
-
-  .card-body{
-    display:grid;
-    grid-template-rows:0fr;
-    transition:grid-template-rows 0.28s ease;
-  }
-  .card[data-open="true"] .card-body{ grid-template-rows:1fr; }
-  .card-body-inner{ overflow:hidden; }
-  .sar{
-    padding:2px 22px 22px;
-    display:grid;
-    gap:14px;
-  }
-  .sar-row{
-    display:grid;
-    grid-template-columns:110px 1fr;
-    gap:14px;
-    padding-top:12px;
-    border-top:1px dashed var(--line);
-  }
-  .sar-row:first-child{ border-top:none; padding-top:0; }
-  .sar-label{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:0.72rem;
-    color:var(--accent-2);
-    text-transform:uppercase;
-    padding-top:2px;
-  }
-  .sar-text{ color:var(--ink-soft); }
-
-  /* ---------- EVIDENCE ---------- */
-  .evidence-card{
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:24px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
-    flex-wrap:wrap;
-  }
-  .evidence-card p{ margin:0; color:var(--ink-soft); max-width:46ch; }
-  .btn{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    background:var(--ink);
-    color:var(--surface);
-    text-decoration:none;
-    padding:12px 20px;
-    border-radius:999px;
-    font-weight:600;
-    font-size:0.92rem;
-    white-space:nowrap;
-  }
-  .btn:hover{ background:var(--accent-2); }
-
-  /* ---------- FOOTER ---------- */
-  footer{
-    padding:40px 0 60px;
-  }
-  footer p{ color:var(--ink-soft); font-size:0.9rem; margin:0; }
-  footer a.mono{ color:var(--accent-2); text-decoration:none; }
-  footer a.mono:hover{ text-decoration:underline; }
-
-  @media (max-width:640px){
-    .scope-grid{ grid-template-columns:1fr; }
-    .sar-row{ grid-template-columns:1fr; gap:4px; }
-    .evidence-card{ flex-direction:column; align-items:flex-start; }
-  }
-</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공개 프로필</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <header class="hero wrap">
-    <h2>서로 다른 가치관을 지닌 불특정 다수의 사람들과 자유롭게 소통하며 긍정적인 영향을 주고받기 위한 프로필입니다.</h2>
-    <p class="hero-desc">
-      저는 <b>【stuls】</b>입니다. 아래에서 제 강점 3가지를 상황·행동·결과로 정리했습니다.
-    </p>
-    <h2 id="scope-heading">공개 · 비공개 범위</h2>
-    <div class="scope-grid">
-      <div class="scope-card public">
-        <h3>공개하는 것</h3>
-        <ul>
-          <li> 활동이름 : stuls </li>
-          <li> 취미 : 게임, 야구직관 </li>
-          <li> mbti : ISTP</li>
-        </ul>
-      </div>
-      <div class="scope-card private">
-        <h3>공개하지 않는 것</h3>
-        <ul>
-          <li>실명, 학교명</li>
-          <li>얼굴이 나온 사진</li>
-          <li>주소·전화번호·이메일</li>
-        </ul>
+  <div class="stampbar">
+    <div class="wrap">
+      <span class="stamp">공개 프로필</span>
+      <span class="url">https://stulss.github.io/webtest/</span>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">지금 보고 있는 페이지</p>
+      <h1>[STULS]</h1>
+      <p class="role">IT를 공부를 시작한 사람입니다.</p>
+      <p class="target">
+        이 페이지는 <b>불특정 다수</b>에게
+        <b>AI로 만든 간단한 결과</b>를 보여주기 위한 것이다.
+      </p>
+      <div class="actions">
+        <a class="btn primary" href="#strengths">강점 보기</a>
+        <a class="btn ghost" href="mailto:[[공개해도 되는 연락 방법]]">연락하기</a>
       </div>
     </div>
-
   </header>
 
-  <footer class="wrap">
-    <p>이 페이지는 제 판단으로 공개 범위를 정해 직접 만들었습니다. 공개주소
-      <a class="mono" href="https://stulss.github.io/webtest/">https://stulss.github.io/webtest/</a>
-      입니다.</p>
+  <section class="scope">
+    <div class="wrap">
+      <h2>공개 범위</h2>
+      <div class="ledger">
+        <div class="ledger-col pub">
+          <h3>공개함</h3>
+          <ul>
+            <li>취미 : 게임, 야구직관</li>
+            <li>목표 : 전 야구장 직관하기</li>
+            <li>MBTI : ISTP</li>
+          </ul>
+        </div>
+        <div class="ledger-col priv">
+          <h3>공개하지 않음</h3>
+          <ul>
+            <li><span class="redact" aria-hidden="true"></span></li>
+            <li><span class="redact" aria-hidden="true"></span></li>
+            <li><span class="redact" aria-hidden="true"></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 강점 카드는 더 이상 여기 하드코딩되어 있지 않습니다.
+       model.js의 데이터를 View가 읽어서 이 컨테이너 안에 채웁니다. -->
+  <section class="strengths" id="strengths">
+    <div class="wrap">
+      <h2>강점</h2>
+      <div id="strengths-list"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="stamp-row">
+        <span class="dot" aria-hidden="true"></span>
+        <span>이 페이지는 공개 주소에서 직접 검증할 수 있습니다.</span>
+      </div>
+    </div>
   </footer>
 
-<script>
-(function () {
-  var cards = document.querySelectorAll('.card');
-
-  cards.forEach(function (card) {
-    var head = card.querySelector('.card-head');
-
-    function toggle() {
-      var isOpen = card.getAttribute('data-open') === 'true';
-      var next = !isOpen;
-      card.setAttribute('data-open', String(next));
-      head.setAttribute('aria-expanded', String(next));
-    }
-
-    // Mouse / touch
-    head.addEventListener('click', toggle);
-
-    // Keyboard: native <button> already fires 'click' on Enter/Space,
-    // this is a safety net in case of custom focus handling.
-    head.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
-        e.preventDefault();
-        toggle();
-      }
-    });
-  });
-})();
-</script>
+  <!-- MVC: Model → View → Controller → 조립(app) 순서로 로드 -->
+  <script src="model.js"></script>
+  <script src="view.js"></script>
+  <script src="controller.js"></script>
+  <script src="app.js"></script>
 
 </body>
 </html>
