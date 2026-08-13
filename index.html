@@ -1,86 +1,72 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>공개 프로필</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>홍주형 — 포트폴리오</title>
+  <meta name="description" content="홍주형의 최근 배움과 관심사를 소개하는 개인 포트폴리오 페이지" />
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-
-  <div class="stampbar">
-    <div class="wrap">
-      <span class="stamp">공개 프로필</span>
-      <span class="url">https://stulss.github.io/webtest/</span>
-    </div>
-  </div>
+  <a class="skip-link" href="#main">본문 바로가기</a>
 
   <header class="hero">
-    <div class="wrap">
-      <p class="eyebrow">지금 보고 있는 페이지</p>
-      <h1>[STULS]</h1>
-      <p class="role">IT를 공부를 시작한 사람입니다.</p>
-      <p class="target">
-        이 페이지는 <b>불특정 다수</b>에게
-        <b>AI로 만든 간단한 결과</b>를 보여주기 위한 것이다.
-      </p>
-      <div class="actions">
-        <a class="btn primary" href="#strengths">강점 보기</a>
-        <a class="btn ghost" href="mailto:[[공개해도 되는 연락 방법]]">연락하기</a>
+    <div class="container hero-inner">
+      <p class="eyebrow">PORTFOLIO</p>
+      <h1 id="profile-name"></h1>
+      <p id="target-sentence" class="target-sentence"></p>
+      <div class="hero-highlights">
+        <span class="chip" id="hero-activity-chip"></span>
+        <a class="chip chip-link" id="hero-evidence-chip" target="_blank" rel="noopener noreferrer"></a>
       </div>
     </div>
   </header>
 
-  <section class="scope">
-    <div class="wrap">
-      <h2>공개 범위</h2>
-      <div class="ledger">
-        <div class="ledger-col pub">
-          <h3>공개함</h3>
-          <ul>
-            <li>취미 : 게임, 야구직관</li>
-            <li>목표 : 전 야구장 직관하기</li>
-            <li>MBTI : ISTP</li>
-          </ul>
-        </div>
-        <div class="ledger-col priv">
-          <h3>공개하지 않음</h3>
-          <ul>
-            <li><span class="redact" aria-hidden="true"></span></li>
-            <li><span class="redact" aria-hidden="true"></span></li>
-            <li><span class="redact" aria-hidden="true"></span></li>
-          </ul>
+  <main id="main">
+    <section id="disclosure" class="section" aria-labelledby="disclosure-heading">
+      <div class="container">
+        <h2 id="disclosure-heading">공개 범위</h2>
+        <div class="disclosure-grid">
+          <div class="disclosure-col">
+            <h3>공개하는 것</h3>
+            <ul id="public-list"></ul>
+          </div>
+          <div class="disclosure-col">
+            <h3>공개하지 않는 것</h3>
+            <ul id="private-list"></ul>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- 강점 카드는 더 이상 여기 하드코딩되어 있지 않습니다.
-       model.js의 데이터를 View가 읽어서 이 컨테이너 안에 채웁니다. -->
-  <section class="strengths" id="strengths">
-    <div class="wrap">
-      <h2>강점</h2>
-      <div id="strengths-list"></div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="wrap">
-      <div class="stamp-row">
-        <span class="dot" aria-hidden="true"></span>
-        <span>이 페이지는 공개 주소에서 직접 검증할 수 있습니다.</span>
+    <section id="strengths" class="section" aria-labelledby="strengths-heading">
+      <div class="container">
+        <h2 id="strengths-heading">강점</h2>
+        <p class="section-desc">항목을 눌러 상황·행동·결과를 자세히 볼 수 있습니다.</p>
+        <div id="strength-list" class="strength-list"></div>
       </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; 2026 홍주형</p>
     </div>
   </footer>
 
-  <!-- MVC: Model → View → Controller → 조립(app) 순서로 로드 -->
-  <script src="model.js"></script>
-  <script src="view.js"></script>
-  <script src="controller.js"></script>
-  <script src="app.js"></script>
-
+  <!-- Model -->
+  <script src="js/models/PortfolioData.js"></script>
+  <script src="js/models/ProfileModel.js"></script>
+  <script src="js/models/StrengthModel.js"></script>
+  <!-- View -->
+  <script src="js/views/domHelpers.js"></script>
+  <script src="js/views/ProfileView.js"></script>
+  <script src="js/views/StrengthView.js"></script>
+  <!-- Controller -->
+  <script src="js/controllers/StrengthController.js"></script>
+  <script src="js/controllers/AppController.js"></script>
+  <!-- Entry point -->
+  <script src="js/main.js"></script>
 </body>
 </html>

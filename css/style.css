@@ -1,0 +1,329 @@
+/* ===========================================================
+   홍주형 포트폴리오 — View 스타일 (미니멀/모던 다크)
+   =========================================================== */
+
+:root {
+  --bg: #0b0d10;
+  --bg-elevated: #14171c;
+  --bg-elevated-2: #1a1e24;
+  --border: #262b33;
+  --text-primary: #f4f5f7;
+  --text-secondary: #a7adba;
+  --text-muted: #828a97;
+  --accent: #7fc8a9;
+  --accent-strong: #9fe3c3;
+  --pending: #d9a441;
+  --pending-bg: rgba(217, 164, 65, 0.1);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --max-width: 880px;
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 40px;
+  --space-5: 64px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+/* -------------------- 접근성: skip link / focus -------------------- */
+
+.skip-link {
+  display: inline-block;
+  margin: 12px;
+  background: var(--accent);
+  color: #08110c;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a,
+button {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* -------------------- Hero -------------------- */
+
+.hero {
+  padding: var(--space-5) 0 var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+
+.eyebrow {
+  margin: 0 0 var(--space-2);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+#profile-name {
+  margin: 0 0 var(--space-2);
+  font-size: clamp(28px, 5vw, 42px);
+  line-height: 1.2;
+}
+
+.target-sentence {
+  margin: 0 0 var(--space-3);
+  max-width: 640px;
+  color: var(--text-secondary);
+  font-size: clamp(15px, 2vw, 18px);
+}
+
+.hero-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  font-size: 14px;
+  text-decoration: none;
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+.chip-link {
+  color: var(--accent-strong);
+  border-color: rgba(127, 200, 169, 0.35);
+}
+
+.chip-link:hover {
+  border-color: var(--accent-strong);
+}
+
+/* -------------------- Section 공통 -------------------- */
+
+.section {
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.section h2 {
+  margin: 0 0 var(--space-2);
+  font-size: clamp(20px, 3vw, 26px);
+}
+
+.section-desc {
+  margin: 0 0 var(--space-3);
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* -------------------- 공개 범위 -------------------- */
+
+.disclosure-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+}
+
+.disclosure-col h3 {
+  margin: 0 0 var(--space-1);
+  font-size: 15px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.disclosure-col ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.disclosure-col li {
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+}
+
+#public-list li {
+  border-left: 3px solid var(--accent);
+}
+
+#private-list li {
+  border-left: 3px solid var(--text-muted);
+  color: var(--text-secondary);
+}
+
+/* -------------------- 강점 카드 (아코디언) -------------------- */
+
+.strength-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.strength-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  overflow: hidden;
+}
+
+.strength-card.is-pending {
+  border-style: dashed;
+  border-color: var(--pending);
+}
+
+.strength-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: 18px 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+  color: var(--text-primary);
+}
+
+.strength-toggle:hover {
+  background: var(--bg-elevated-2);
+}
+
+/* 부모 .strength-card가 overflow:hidden이라 바깥쪽 outline이 잘리므로,
+   토글 버튼만 안쪽(inset)으로 포커스 링을 그려 항상 보이게 한다. */
+.strength-toggle:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: -3px;
+  background: var(--bg-elevated-2);
+}
+
+.pending-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 999px;
+  color: var(--pending);
+  background: var(--pending-bg);
+  vertical-align: middle;
+}
+
+.toggle-icon {
+  flex-shrink: 0;
+  font-size: 18px;
+  color: var(--accent-strong);
+}
+
+.strength-panel {
+  padding: 0 20px 20px;
+}
+
+.strength-panel dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 6px 12px;
+}
+
+.strength-panel dt {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  padding-top: 2px;
+}
+
+.strength-panel dd {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.evidence-link {
+  margin: var(--space-2) 0 0;
+}
+
+.evidence-link a {
+  color: var(--accent-strong);
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+/* -------------------- Footer -------------------- */
+
+.site-footer {
+  padding: var(--space-3) 0 var(--space-4);
+}
+
+.site-footer p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* -------------------- 모션 최소화 -------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+.strength-toggle {
+  transition: background-color 0.15s ease;
+}
+
+/* -------------------- 반응형 안전장치 (가로 스크롤 방지) -------------------- */
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+}
