@@ -22,6 +22,28 @@
   --space-3: 24px;
   --space-4: 40px;
   --space-5: 64px;
+
+  /* 심화된 다크 배경 + 글래스모피즘 토큰 */
+  --bg-void: #06070a;
+  --glass-bg: rgba(20, 24, 31, 0.55);
+  --glass-bg-hover: rgba(24, 29, 37, 0.68);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(159, 227, 195, 0.28);
+  --glass-blur: 18px;
+  --accent-cyan: #6fd3e0;
+  --accent-blue: #6fa3f2;
+  --accent-gradient: linear-gradient(
+    135deg,
+    var(--accent) 0%,
+    var(--accent-cyan) 55%,
+    var(--accent-blue) 100%
+  );
+  --accent-rgb: 127, 200, 169;
+  --accent-blue-rgb: 111, 163, 242;
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.45),
+    0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  --shadow-glass-hover: 0 14px 40px rgba(0, 0, 0, 0.5),
+    0 0 0 1px var(--glass-border-hover);
 }
 
 * {
@@ -34,7 +56,19 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
+  background-color: var(--bg-void);
+  background-image: radial-gradient(
+      circle at 85% -10%,
+      rgba(var(--accent-rgb), 0.14),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at -10% 30%,
+      rgba(var(--accent-blue-rgb), 0.1),
+      transparent 42%
+    );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: var(--text-primary);
   font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", -apple-system,
     BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -67,6 +101,13 @@ img {
   border-radius: var(--radius-sm);
   font-weight: 600;
   text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.skip-link:hover,
+.skip-link:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(var(--accent-rgb), 0.35);
 }
 
 a,
@@ -97,8 +138,15 @@ button {
 
 #profile-name {
   margin: 0 0 var(--space-2);
+  font-family: "Space Grotesk", "Pretendard", -apple-system, sans-serif;
+  font-weight: 700;
   font-size: clamp(28px, 5vw, 42px);
   line-height: 1.2;
+  letter-spacing: -0.01em;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .target-sentence {
@@ -129,6 +177,10 @@ button {
   overflow-wrap: break-word;
 }
 
+.chip {
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
 .chip-link {
   color: var(--accent-strong);
   border-color: rgba(127, 200, 169, 0.35);
@@ -136,6 +188,8 @@ button {
 
 .chip-link:hover {
   border-color: var(--accent-strong);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(var(--accent-rgb), 0.25);
 }
 
 /* -------------------- Section 공통 -------------------- */
@@ -147,7 +201,10 @@ button {
 
 .section h2 {
   margin: 0 0 var(--space-2);
+  font-family: "Space Grotesk", "Pretendard", -apple-system, sans-serif;
+  font-weight: 700;
   font-size: clamp(20px, 3vw, 26px);
+  letter-spacing: -0.01em;
 }
 
 .section-desc {
@@ -180,9 +237,12 @@ button {
 .disclosure-col li {
   padding: 10px 14px;
   margin-bottom: 8px;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-glass);
   font-size: 14px;
 }
 
@@ -204,9 +264,12 @@ button {
 }
 
 .strength-card {
-  border: 1px solid var(--border);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius);
-  background: var(--bg-elevated);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  box-shadow: var(--shadow-glass);
   overflow: hidden;
 }
 
@@ -232,7 +295,7 @@ button {
 }
 
 .strength-toggle:hover {
-  background: var(--bg-elevated-2);
+  background: var(--glass-bg-hover);
 }
 
 /* 부모 .strength-card가 overflow:hidden이라 바깥쪽 outline이 잘리므로,
@@ -240,7 +303,7 @@ button {
 .strength-toggle:focus-visible {
   outline: 2px solid var(--accent-strong);
   outline-offset: -3px;
-  background: var(--bg-elevated-2);
+  background: var(--glass-bg-hover);
 }
 
 .pending-badge {
@@ -263,6 +326,7 @@ button {
 
 .strength-panel {
   padding: 0 20px 20px;
+  transition: height 0.25s ease;
 }
 
 .strength-panel dl {
@@ -295,6 +359,196 @@ button {
   text-decoration: underline;
 }
 
+/* -------------------- 프로젝트 -------------------- */
+
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.project-card {
+  padding: var(--space-3);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  box-shadow: var(--shadow-glass);
+}
+
+.project-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-1);
+}
+
+.project-name {
+  margin: 0;
+  font-family: "Space Grotesk", "Pretendard", -apple-system, sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--text-primary);
+}
+
+.project-description {
+  margin: 0 0 var(--space-2);
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: var(--space-2);
+}
+
+.tech-chip {
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--bg-elevated-2);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.project-troubleshooting {
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--border);
+}
+
+.project-troubleshooting-label {
+  margin: 0 0 var(--space-1);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* -------------------- 트러블슈팅 (아코디언, 프로젝트 카드 안에 중첩) -------------------- */
+
+.troubleshooting-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* 트러블슈팅 카드는 이제 항상 .project-card 안에 중첩되므로,
+   블러를 또 겹치지 않고 살짝 더 밝은 단색 배경만 준다. */
+.troubleshooting-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated-2);
+  overflow: hidden;
+}
+
+.troubleshooting-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: 18px 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+  color: var(--text-primary);
+  transition: background-color 0.15s ease;
+}
+
+.troubleshooting-toggle:hover {
+  background: var(--glass-bg-hover);
+}
+
+/* .strength-toggle:focus-visible과 동일한 이유(overflow:hidden의 outline 잘림 방지)로
+   인셋 포커스 링을 쓴다. */
+.troubleshooting-toggle:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: -3px;
+  background: var(--glass-bg-hover);
+}
+
+.troubleshooting-panel {
+  padding: 0 20px 20px;
+  transition: height 0.25s ease;
+}
+
+.troubleshooting-panel dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 6px 12px;
+}
+
+.troubleshooting-panel dt {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  padding-top: 2px;
+}
+
+.troubleshooting-panel dd {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* -------------------- 기술 -------------------- */
+
+.techstack-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-2);
+}
+
+.tech-card {
+  padding: 16px 18px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-glass);
+}
+
+.tech-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: 6px;
+}
+
+.tech-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 15px;
+}
+
+.tech-status {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: var(--accent-strong);
+  border: 1px solid rgba(127, 200, 169, 0.35);
+}
+
+.tech-reason {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
 /* -------------------- Footer -------------------- */
 
 .site-footer {
@@ -305,6 +559,66 @@ button {
   margin: 0;
   color: var(--text-muted);
   font-size: 13px;
+}
+
+/* -------------------- 마이크로 인터랙션 (절제) -------------------- */
+
+.strength-card,
+.project-card,
+.tech-card,
+.disclosure-col li {
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.strength-card:hover,
+.project-card:hover,
+.tech-card:hover,
+.disclosure-col li:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glass-hover);
+  border-color: var(--glass-border-hover);
+}
+
+.strength-toggle:active,
+.troubleshooting-toggle:active {
+  transform: scale(0.99);
+}
+
+.toggle-icon {
+  transition: transform 0.2s ease;
+}
+
+.strength-toggle[aria-expanded="true"] .toggle-icon,
+.troubleshooting-toggle[aria-expanded="true"] .toggle-icon {
+  transform: rotate(180deg);
+}
+
+/* 페이지 로드 시 살짝 떠오르는 순차 등장.
+   opacity:0은 반드시 @keyframes 안에만 둔다 — 별도 정적 규칙으로 두면
+   reduced-motion에서 애니메이션만 꺼지고 opacity:0이 영구히 남아
+   콘텐츠가 안 보이는 회귀가 생긴다. */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-inner {
+  animation: fadeInUp 0.5s ease both;
+}
+
+.section {
+  animation: fadeInUp 0.5s ease 0.08s both;
+}
+
+.site-footer {
+  animation: fadeInUp 0.5s ease 0.16s both;
 }
 
 /* -------------------- 모션 최소화 -------------------- */

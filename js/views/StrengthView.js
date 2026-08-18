@@ -33,10 +33,13 @@ class StrengthView {
     btn.setAttribute("aria-expanded", String(strength.expanded));
     icon.textContent = strength.expanded ? "−" : "+";
 
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
     if (strength.expanded) {
-      panel.removeAttribute("hidden");
+      reduced ? panel.removeAttribute("hidden") : expandPanel(panel);
     } else {
-      panel.setAttribute("hidden", "");
+      reduced ? panel.setAttribute("hidden", "") : collapsePanel(panel);
     }
   }
 

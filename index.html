@@ -6,6 +6,9 @@
   <title>홍주형 — 포트폴리오</title>
   <meta name="description" content="홍주형의 최근 배움과 관심사를 소개하는 개인 포트폴리오 페이지" />
   <link rel="icon" href="data:," />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -24,6 +27,30 @@
   </header>
 
   <main id="main">
+    <section id="strengths" class="section" aria-labelledby="strengths-heading">
+      <div class="container">
+        <h2 id="strengths-heading">강점</h2>
+        <p class="section-desc">항목을 눌러 상황·행동·결과를 자세히 볼 수 있습니다.</p>
+        <div id="strength-list" class="strength-list"></div>
+      </div>
+    </section>
+
+    <section id="projects" class="section" aria-labelledby="projects-heading">
+      <div class="container">
+        <h2 id="projects-heading">프로젝트</h2>
+        <p class="section-desc">직접 만든 프로젝트와, 만들면서 실제로 겪은 결함·해결 과정입니다. 항목을 눌러 자세히 볼 수 있습니다.</p>
+        <div id="project-list" class="project-list"></div>
+      </div>
+    </section>
+
+    <section id="techstack" class="section" aria-labelledby="techstack-heading">
+      <div class="container">
+        <h2 id="techstack-heading">기술</h2>
+        <p class="section-desc">숙련도 표시 대신, 왜 배우거나 선택했는지를 적었습니다.</p>
+        <div id="techstack-list" class="techstack-list"></div>
+      </div>
+    </section>
+
     <section id="disclosure" class="section" aria-labelledby="disclosure-heading">
       <div class="container">
         <h2 id="disclosure-heading">공개 범위</h2>
@@ -39,14 +66,6 @@
         </div>
       </div>
     </section>
-
-    <section id="strengths" class="section" aria-labelledby="strengths-heading">
-      <div class="container">
-        <h2 id="strengths-heading">강점</h2>
-        <p class="section-desc">항목을 눌러 상황·행동·결과를 자세히 볼 수 있습니다.</p>
-        <div id="strength-list" class="strength-list"></div>
-      </div>
-    </section>
   </main>
 
   <footer class="site-footer">
@@ -59,12 +78,21 @@
   <script src="js/models/PortfolioData.js"></script>
   <script src="js/models/ProfileModel.js"></script>
   <script src="js/models/StrengthModel.js"></script>
+  <script src="js/models/TroubleshootingModel.js"></script>
+  <script src="js/models/ProjectModel.js"></script>
+  <script src="js/models/TechStackModel.js"></script>
   <!-- View -->
   <script src="js/views/domHelpers.js"></script>
+  <script src="js/views/accordionAnimation.js"></script>
   <script src="js/views/ProfileView.js"></script>
   <script src="js/views/StrengthView.js"></script>
+  <script src="js/views/TroubleshootingView.js"></script>
+  <script src="js/views/ProjectView.js"></script>
+  <script src="js/views/TechStackView.js"></script>
   <!-- Controller -->
   <script src="js/controllers/StrengthController.js"></script>
+  <script src="js/controllers/TroubleshootingController.js"></script>
+  <script src="js/controllers/ProjectController.js"></script>
   <script src="js/controllers/AppController.js"></script>
   <!-- Entry point -->
   <script src="js/main.js"></script>
