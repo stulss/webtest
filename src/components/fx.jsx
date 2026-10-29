@@ -65,8 +65,10 @@ export function Tilt({ children, className, max = 8 }) {
     `radial-gradient(360px circle at ${x}% ${y}%, rgba(159,227,195,0.16), transparent 60%)`
   );
 
-  if (reduced) return <div className={className}>{children}</div>;
+  // 카드 섹션 제거: 기울임 효과 없이 일반 래퍼로만 사용
+  return <div className={className}>{children}</div>;
 
+  // eslint-disable-next-line no-unreachable
   const move = (e) => {
     const r = ref.current.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width;

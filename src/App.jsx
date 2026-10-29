@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import { PORTFOLIO_DATA as data } from "./data/portfolioData.js";
 import Nav from "./components/Nav.jsx";
@@ -15,10 +15,27 @@ const Scene3D = lazy(() => import("./components/Scene3D.jsx"));
 
 export default function App() {
   const { profile } = data;
-  const reduced = useReducedMotion();
+  const osReduced = useReducedMotion();
+  // 운영체제의 "동작 줄이기"가 켜져 있으면 3D가 멈춘다. 모바일에서 흔한 경우라 직접 켤 수 있는 버튼을 둔다.
+  const [motion3d, setMotion3d] = useState(() => {
+    try {
+      const saved = localStorage.getItem("motion3d");
+      if (saved !== null) return saved === "on";
+    } catch {}
+    return !osReduced;
+  });
+  const toggleMotion = () => {
+    setMotion3d((v) => {
+      try { localStorage.setItem("motion3d", v ? "off" : "on"); } catch {}
+      return !v;
+    });
+  };
   return (
     <>
-      <Suspense fallback={null}><Scene3D reduced={!!reduced} /></Suspense>
+      <Suspense fallback={null}><Scene3D reduced={!motion3d} /></Suspense>
+      <button type="button" className="motion-toggle" aria-pressed={motion3d} onClick={toggleMotion}>
+        3D 움직임 {motion3d ? "끄기" : "켜기"}
+      </button>
       <ScrollBar />
       <CursorGlow />
       <a className="skip-link" href="#main">본문 바로가기</a>

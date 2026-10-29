@@ -14,7 +14,9 @@ function Rig({ reduced, children }) {
     const p = scrollProgress();
     const { x, y } = state.pointer;
     // 마우스 패럴랙스 + 스크롤에 따라 카메라가 장면 속을 지나감
-    const tx = x * 0.8;
+    // 터치 기기는 포인터가 없어서 천천히 좌우로 흔들리는 움직임을 더해 준다
+    const sway = reduced ? 0 : Math.sin(state.clock.elapsedTime * 0.35) * 0.5;
+    const tx = x * 0.8 + sway;
     const ty = y * 0.5 - p * 2.5;
     const tz = 6 - p * 7;
     state.camera.position.x += (tx - state.camera.position.x) * Math.min(1, dt * 2);
@@ -22,8 +24,10 @@ function Rig({ reduced, children }) {
     state.camera.position.z += (tz - state.camera.position.z) * Math.min(1, dt * 2);
     state.camera.lookAt(0, -p * 2, 0);
     if (group.current && !reduced) group.current.rotation.y = p * Math.PI * 1.5;
+    // 화면 오른쪽 가장자리로 치우치게 (모바일은 덜 치우침)
+    if (group.current) group.current.position.x = state.size.width < 720 ? 0.6 : 2.6;
   });
-  return <group ref={group}>{children}</group>;
+  return <group ref={group} scale={0.5}>{children}</group>;
 }
 
 function Core({ reduced }) {
@@ -42,11 +46,11 @@ function Core({ reduced }) {
     <>
       <mesh ref={ico}>
         <icosahedronGeometry args={[1.6, 1]} />
-        <meshBasicMaterial color="#7fc8a9" wireframe transparent opacity={0.55} />
+        <meshBasicMaterial color="#7fc8a9" wireframe transparent opacity={0.35} />
       </mesh>
       <mesh ref={knot}>
         <torusKnotGeometry args={[0.7, 0.18, 160, 20]} />
-        <meshBasicMaterial color="#6fa3f2" wireframe transparent opacity={0.8} />
+        <meshBasicMaterial color="#6fa3f2" wireframe transparent opacity={0.5} />
       </mesh>
     </>
   );
@@ -74,7 +78,7 @@ function Particles({ reduced }) {
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" count={positions.length / 3} array={positions} itemSize={3} />
       </bufferGeometry>
-      <pointsMaterial size={0.04} color="#9fe3c3" transparent opacity={0.75} sizeAttenuation depthWrite={false} blending={THREE.AdditiveBlending} />
+      <pointsMaterial size={0.03} color="#9fe3c3" transparent opacity={0.4} sizeAttenuation depthWrite={false} blending={THREE.AdditiveBlending} />
     </points>
   );
 }
@@ -96,7 +100,7 @@ function Rings({ reduced }) {
       {[0, 1, 2, 3, 4].map((i) => (
         <mesh key={i} ref={(el) => (refs.current[i] = el)} position={[Math.sin(i * 2) * 3, -i * 2.2, -i * 1.5]}>
           <torusGeometry args={[1 + i * 0.15, 0.015, 8, 80]} />
-          <meshBasicMaterial color={i % 2 ? "#6fd3e0" : "#7fc8a9"} transparent opacity={0.6} />
+          <meshBasicMaterial color={i % 2 ? "#6fd3e0" : "#7fc8a9"} transparent opacity={0.35} />
         </mesh>
       ))}
     </>

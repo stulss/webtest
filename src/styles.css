@@ -343,3 +343,39 @@ h1, h2, h3, p, dl, dd { margin: 0; }
   .ba-arrow { transform: rotate(90deg); justify-self: start; }
   .project-card { padding: 22px; }
 }
+
+/* ===================== 카드 제거 · 3D 축소 (2026-10-29) ===================== */
+.scene3d { opacity: 0.7; }
+
+/* 박스·그림자·블러를 없애고 구분선 중심의 평면 레이아웃으로 */
+.card, .card:hover, .tilt.card:hover {
+  background: none; border: 0; border-top: 1px solid var(--border); border-radius: 0;
+  box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; transform: none;
+}
+.bento .card, .growth-card, .tech-card, .stat-card { padding: 20px 0; }
+.project-card { padding: 36px 0 12px; border-top: 1px solid var(--glass-border); }
+.tech-card { border-radius: 0; }
+.bento { gap: 8px 32px; }
+.bento-stats { gap: 8px 32px; }
+
+.acc-strength, .acc-ts {
+  background: none; border: 0; border-bottom: 1px solid var(--border); border-radius: 0;
+  box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none;
+}
+.acc-strength:hover { border-color: var(--border); }
+.acc-toggle { padding: 18px 0; }
+.acc-toggle:hover, .acc-toggle:focus-visible { background: none; }
+.acc-panel { padding: 0 0 20px; }
+.acc-ts .acc-toggle { padding: 14px 0; font-size: 15px; }
+
+.disclosure-list li { background: none; border: 0; border-bottom: 1px solid var(--border); border-radius: 0; padding: 12px 0 12px 14px; }
+.roadmap li { background: none; border-radius: 0; padding: 18px 0 0; }
+.lacking-card { margin-top: 24px; padding: 4px 0 4px 18px; border: 0; border-left: 3px solid #d9a441; }
+.project-results { border-radius: 0; background: none; padding: 4px 0 4px 16px; }
+.marquee { background: none; backdrop-filter: none; }
+.section { background: linear-gradient(180deg, transparent, rgba(6,7,10,0.72) 18%, rgba(6,7,10,0.72) 82%, transparent); }
+
+.motion-toggle { position: fixed; right: 12px; bottom: 12px; z-index: 70; padding: 8px 14px; border-radius: 999px; cursor: pointer;
+  font: inherit; font-size: 12px; color: var(--text-secondary); background: rgba(6, 7, 10, 0.75);
+  border: 1px solid var(--glass-border); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.motion-toggle:hover { color: var(--text-primary); border-color: var(--glass-border-hover); }
